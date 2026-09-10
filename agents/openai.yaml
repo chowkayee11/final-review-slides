@@ -1,0 +1,4 @@
+interface:
+  display_name: "Final Review Slides"
+  short_description: "Build deep, verified review packs and mock exams"
+  default_prompt: "Use $final-review-slides to turn my course materials into a source-cited comprehensive review pack and, when assessment evidence is available, a validated mock exam with separate solutions."
