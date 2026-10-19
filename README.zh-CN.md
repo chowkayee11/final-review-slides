@@ -18,6 +18,7 @@
 - 公式、推导、图表、表格、示意图和依赖版面关系的内容必须经过视觉检查。
 - 当存在足够的考核资料或用户明确要求时，生成模拟试卷和独立答案册。
 - 对覆盖率、讲解深度、顺序、引用、公式、视觉证据、渲染和考试依据设置阻塞式质量门槛。
+- 在完整处理课程前运行小型中英文字体与公式构建预检，选择已验证的 PDF 后端，失败则提前停止。
 
 ## 输入资料
 
@@ -151,6 +152,10 @@ Skill 会先建立 `mock-exam-blueprint.md`，再编写题目。命题形式和�
 
 Mermaid 源文件始终保留。Skill 不会尝试绕过安全沙箱。
 
+## PDF 构建降级
+
+开始深度整理前，Skill 会先编译一页包含中文、英文和数学公式的测试文档。它依次尝试 Codex 内置 LaTeX 编译器、已安装的 LaTeX 引擎、精简模板，以及在保留 `.tex` 源文件的同时使用受支持的直接 PDF 后端。如果所有 PDF 路径均不可用，Skill 会在完整处理课程前询问是否接受仅交付源文件，不会等到整理结束才暴露阻塞问题。
+
 ## 质量门槛
 
 完成任务前必须按适用情况满足以下要求：
@@ -177,9 +182,11 @@ final-review-slides/
 ├── agents/
 │   └── openai.yaml
 ├── assets/
+│   ├── build-smoke-test.tex
 │   └── review-template.tex
 ├── references/
 │   ├── bilingual-writing.md
+│   ├── build-and-render.md
 │   ├── mock-exam.md
 │   ├── output-schemas.md
 │   ├── quality-gates.md

@@ -39,9 +39,15 @@ Accept `language: auto | zh | en | bilingual`. Do not block when the user omits 
 
 Accept `depth: concise | comprehensive | deep`; default to `comprehensive`. `final-review` is a teaching document, not a compressed outline. The depth option does not authorize omissions.
 
-Read [bilingual-writing.md](references/bilingual-writing.md) when deciding terminology. Read [source-and-priority.md](references/source-and-priority.md) before assigning exam importance. Read [output-schemas.md](references/output-schemas.md) before drafting. Read [quality-gates.md](references/quality-gates.md) before verification.
+Read [bilingual-writing.md](references/bilingual-writing.md) when deciding terminology. Read [source-and-priority.md](references/source-and-priority.md) before assigning exam importance. Read [output-schemas.md](references/output-schemas.md) before drafting. Read [build-and-render.md](references/build-and-render.md) before creating full drafts. Read [quality-gates.md](references/quality-gates.md) before verification.
 
 ## Workflow
+
+### 0. Preflight the build environment
+
+Before deep extraction or drafting, copy and compile `assets/build-smoke-test.tex`. It tests Chinese, English, mathematics, tables, and hyperlinks. Select a working PDF backend using [build-and-render.md](references/build-and-render.md), record the result, and test Mermaid or its PDF-native fallback at the same time.
+
+Do not process the full course before discovering that the requested deliverables cannot be built. If no PDF backend works, stop early and ask whether the user accepts a source-only delivery; do not silently downgrade.
 
 ### 1. Inventory and classify
 
@@ -124,7 +130,9 @@ Create new questions or meaningful variants by default. Keep answers separate. C
 
 Run all gates in [quality-gates.md](references/quality-gates.md). A verifier must compare drafts against source pages and the coverage ledger, not merely review the prose.
 
-Compile each `.tex` with XeLaTeX or another engine proven to preserve the selected language and mathematics. Render every generated PDF to images and inspect for missing glyphs, overflow, clipping, overlap, broken formulas, unreadable tables, and course-map placement. Fix and re-run checks until all blocking gates pass.
+Use the backend selected during preflight. Prefer the Codex built-in LaTeX compiler when available, then a proven installed LaTeX engine. If dependencies fail, retry with the minimal template; if LaTeX remains unavailable, use a supported direct-PDF path through the PDF skill while preserving equivalent `.tex` sources. Never attempt network package installation without authorization.
+
+Render every generated PDF to images and inspect for missing glyphs, overflow, clipping, overlap, broken formulas, unreadable tables, and course-map placement. Fix and re-run checks until all blocking gates pass. Record the backend, template mode, missing dependencies, fallback attempts, and visual-QA evidence in `coverage-report.md`.
 
 ## Citation format
 
@@ -144,3 +152,9 @@ Do not claim “no omissions” as an unsupported absolute. Report verified cove
 - mock-exam artifacts when assessment evidence or the user request triggers them
 - canonical map JSON, Mermaid source, and a successfully embedded Mermaid or PDF-native fallback map
 - a complete `coverage-report.md` with PASS/FAIL results
+
+Report one overall delivery state:
+
+- `PASS`: all requested PDFs exist and pass visual QA.
+- `PARTIAL`: sources are complete but PDFs are absent, only when the user explicitly accepted source-only delivery after preflight.
+- `FAIL`: required PDFs or blocking verification remain unavailable.

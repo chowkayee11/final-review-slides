@@ -52,7 +52,8 @@ Include:
 - unresolved uncertainties
 - citation spot-check results
 - build and visual-QA results for each PDF
+- build-preflight result, selected backend, template mode, missing dependencies, and fallback attempts
 - resolved language and depth modes
 - mock-exam blueprint and validation results when applicable
 - map renderer used and fallback reason when applicable
-- final gate table with PASS/FAIL and evidence
+- final gate table with PASS/PARTIAL/FAIL and evidence

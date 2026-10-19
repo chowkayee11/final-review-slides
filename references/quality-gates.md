@@ -5,6 +5,7 @@ All blocking gates must pass.
 | Gate | Blocking test |
 |---|---|
 | Inventory | Every supplied file is classified; ambiguous roles are disclosed. |
+| Build preflight | Before deep drafting, the Chinese/English/math smoke test selects a working backend, or the task stops for an explicit source-only decision. |
 | Ordering | Lecture order has evidence; missing and duplicate identifiers are reported. |
 | Page coverage | Every page/slide has exactly one valid disposition; none remain uncovered or uncertain. |
 | Sequence | Main review follows lecture and intra-lecture source order. |
@@ -18,7 +19,7 @@ All blocking gates must pass.
 | Derived documents | Every quick-reference and misconception entry is traceable to verified source evidence. |
 | Course map | Canonical JSON and Mermaid source exist; a consistent Mermaid rendering or PDF-native fallback is embedded. |
 | Mock exam | When triggered, every question is supported and answerable; keys, calculations/protocols, mark totals, balance, separation of answers, and citations in solutions pass. |
-| Build | All required LaTeX sources compile without fatal errors. |
+| Build | All requested PDFs exist; the selected backend and any fallback attempts are recorded. LaTeX sources are preserved even when a direct-PDF fallback is used. |
 | Visual QA | Rendered PDFs have no missing glyphs, clipping, overlap, broken math, or unusable layout. |
 
-Record counts, samples, commands, and artifact paths in `coverage-report.md`. Do not mark a gate PASS solely because the draft looks plausible.
+Record counts, samples, commands, artifact paths, selected backend, template mode, missing dependencies, and fallback attempts in `coverage-report.md`. Do not mark a gate PASS solely because the draft looks plausible. A user-approved source-only delivery is `PARTIAL`, never `PASS`.

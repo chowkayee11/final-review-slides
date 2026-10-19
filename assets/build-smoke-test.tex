@@ -1,0 +1,24 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{amsmath,booktabs,hyperref}
+\setmainfont{TeX Gyre Termes}
+\setCJKmainfont{Noto Serif CJK SC}
+\begin{document}
+\section*{Build smoke test / 构建预检}
+English, 中文，and inline mathematics $E=mc^2$.
+\[
+  \Pr(A\mid B)=\frac{\Pr(B\mid A)\Pr(A)}{\Pr(B)}
+\]
+\begin{tabular}{ll}
+\toprule
+Item & Status \\
+\midrule
+Text / 文本 & OK \\
+Math / 公式 & $\sum_{i=1}^{n} i$ \\
+\bottomrule
+\end{tabular}
+
+\href{https://example.com}{Link test}
+\end{document}

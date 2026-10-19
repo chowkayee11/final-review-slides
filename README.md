@@ -18,6 +18,7 @@
 - Requires visual inspection for formulas, derivations, charts, tables, diagrams, and layout-dependent content.
 - Generates source-grounded mock exams with separate solutions when assessment evidence is available or the user requests one.
 - Applies blocking quality gates for coverage, depth, ordering, citations, formulas, visual evidence, rendering, and assessment fidelity.
+- Runs a small multilingual build preflight before processing the full course and selects a verified PDF backend or stops early.
 
 ## Inputs
 
@@ -141,6 +142,10 @@ The validator checks answerability, topic and difficulty balance, total marks, s
 
 The Mermaid source is always preserved. The skill never attempts to bypass the execution sandbox.
 
+## PDF build fallback
+
+Before deep drafting, the skill compiles a one-page Chinese/English/math smoke test. It prefers the Codex built-in LaTeX compiler, then an installed LaTeX engine, a reduced template, and finally a supported direct-PDF backend while retaining `.tex` sources. If no PDF path works, it asks before continuing with source-only delivery instead of revealing the blocker after the full course has been processed.
+
 ## Quality gates
 
 Completion requires, as applicable:
@@ -167,9 +172,11 @@ final-review-slides/
 ├── agents/
 │   └── openai.yaml
 ├── assets/
+│   ├── build-smoke-test.tex
 │   └── review-template.tex
 ├── references/
 │   ├── bilingual-writing.md
+│   ├── build-and-render.md
 │   ├── mock-exam.md
 │   ├── output-schemas.md
 │   ├── quality-gates.md
