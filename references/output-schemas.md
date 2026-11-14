@@ -44,6 +44,7 @@ Suggested columns:
 Include:
 
 - source inventory and resolved order
+- active harness and capability inventory
 - missing/duplicate/ambiguous source findings
 - Revision/Review topics and where covered
 - page/slide ledger summary by file and lecture

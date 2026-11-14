@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-`final-review-slides` is a Codex skill for turning PDF and PowerPoint lecture materials into source-cited final-exam review packs and mock exams. It supports English, Chinese, and mixed-language courses while preserving lecture order, technical terminology, formulas, and traceable page or slide references.
+`final-review-slides` is an agent skill for Codex and DeepSeek Harness that turns PDF and PowerPoint lecture materials into source-cited final-exam review packs and mock exams. It supports English, Chinese, and mixed-language courses while preserving lecture order, technical terminology, formulas, and traceable page or slide references.
 
 ## Features
 
@@ -64,6 +64,8 @@ The generated LaTeX sources are retained so users can revise typography, content
 
 ## Installation
 
+### Codex
+
 Clone the repository into your personal Codex skills directory:
 
 ```bash
@@ -73,6 +75,26 @@ git clone https://github.com/chowkayee11/final-review-slides.git \
 ```
 
 Restart Codex or begin a new task so the skill can be discovered.
+
+### DeepSeek Harness
+
+Install it in a user-level skill root:
+
+```bash
+mkdir -p ~/.dsh/skills
+git clone https://github.com/chowkayee11/final-review-slides.git \
+  ~/.dsh/skills/final-review-slides
+```
+
+Or install it for one repository:
+
+```bash
+mkdir -p .dsh/skills
+git clone https://github.com/chowkayee11/final-review-slides.git \
+  .dsh/skills/final-review-slides
+```
+
+DeepSeek Harness also scans `.agents/skills` and `~/.agents/skills`. Keep `SKILL.md` directly inside the `final-review-slides` directory; deeper nesting is not discovered.
 
 ## Usage
 
@@ -96,6 +118,12 @@ A Chinese request works as well:
 ```text
 使用 $final-review-slides 读取这个目录中的全部讲义。
 采用中文讲解并保留重要英文术语，生成完整复习资料和一套模拟题。
+```
+
+In DeepSeek Harness, invoke it explicitly with:
+
+```text
+/final-review-slides Read all lecture materials in /path/to/course and create a comprehensive review pack.
 ```
 
 ## Language behavior
@@ -144,7 +172,7 @@ The Mermaid source is always preserved. The skill never attempts to bypass the e
 
 ## PDF build fallback
 
-Before deep drafting, the skill compiles a one-page Chinese/English/math smoke test. It prefers the Codex built-in LaTeX compiler, then an installed LaTeX engine, a reduced template, and finally a supported direct-PDF backend while retaining `.tex` sources. If no PDF path works, it asks before continuing with source-only delivery instead of revealing the blocker after the full course has been processed.
+Before deep drafting, the skill compiles a one-page Chinese/English/math smoke test. It prefers a harness-native LaTeX compiler, then an installed LaTeX engine, a reduced template, and finally a supported direct-PDF backend while retaining `.tex` sources. If no PDF path works, it asks before continuing with source-only delivery instead of revealing the blocker after the full course has been processed.
 
 ## Quality gates
 

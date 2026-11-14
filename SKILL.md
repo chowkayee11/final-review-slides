@@ -1,11 +1,19 @@
 ---
 name: final-review-slides
-description: Create Chinese-, English-, or bilingual final-exam review packs and source-grounded mock exams from PDF/PPTX lecture decks, including mixed-language slides, Revision/Review decks, syllabi, assignments, quizzes, and past exams. Use for 期末复习, 课件总结, 考点整理, 模拟题, final review notes, formula/concept sheets, misconception guides, or source-cited exam preparation materials. Preserve lecture and slide order, inspect visual evidence, retain LaTeX sources, and apply strict coverage, depth, assessment, and rendering gates.
+description: Create Chinese-, English-, or bilingual final-exam review packs and source-grounded mock exams from PDF/PPTX lecture decks in Codex, DeepSeek Harness, or another tool-capable agent harness. Use for 期末复习, 课件总结, 考点整理, 模拟题, final review notes, formula/concept sheets, misconception guides, or source-cited exam preparation materials. Preserve lecture and slide order, inspect visual evidence, retain LaTeX sources, and apply strict coverage, depth, assessment, and rendering gates.
 ---
 
 # Final Review Slides
 
-Build a source-traceable exam pack without reordering or silently omitting course material. Use the `pdf` and `presentations` skills for format-specific intake and rendering; follow their render-and-verify requirements.
+Build a source-traceable exam pack without reordering or silently omitting course material. Use the current harness's available PDF, presentation, filesystem, shell, and visual-inspection capabilities; never assume a platform-specific tool exists. In Codex, use the `pdf` and `presentations` skills when available. In DeepSeek Harness, use installed skills and tools exposed by the active preset.
+
+## Harness compatibility
+
+At the start, identify the harness and record available capabilities for PDF/PPTX extraction, shell or script execution, PDF generation, page rendering, and image inspection. Resolve all bundled resources relative to this `SKILL.md`; do not hard-code a Codex home path.
+
+DeepSeek Harness discovers this directory under a scanned skill root and supports explicit `/final-review-slides` invocation. The same files remain valid in Codex through `$final-review-slides`.
+
+Capability loss never weakens evidence standards silently. If the active harness cannot inspect rendered images, stop before deep drafting and ask whether the user accepts manual visual review or a source-only `PARTIAL` delivery. Text extraction alone does not satisfy visual inspection.
 
 ## Required deliverables
 
@@ -43,9 +51,9 @@ Read [bilingual-writing.md](references/bilingual-writing.md) when deciding termi
 
 ## Workflow
 
-### 0. Preflight the build environment
+### 0. Preflight harness capabilities and build environment
 
-Before deep extraction or drafting, copy and compile `assets/build-smoke-test.tex`. It tests Chinese, English, mathematics, tables, and hyperlinks. Select a working PDF backend using [build-and-render.md](references/build-and-render.md), record the result, and test Mermaid or its PDF-native fallback at the same time.
+Before deep extraction or drafting, verify that the active harness can read the inputs, run the coverage validator, render source/output pages, and inspect rendered images. Then copy and compile `assets/build-smoke-test.tex`. It tests Chinese, English, mathematics, tables, and hyperlinks. Select a working PDF backend using [build-and-render.md](references/build-and-render.md), record the result, and test Mermaid or its PDF-native fallback at the same time.
 
 Do not process the full course before discovering that the requested deliverables cannot be built. If no PDF backend works, stop early and ask whether the user accepts a source-only delivery; do not silently downgrade.
 
@@ -130,7 +138,7 @@ Create new questions or meaningful variants by default. Keep answers separate. C
 
 Run all gates in [quality-gates.md](references/quality-gates.md). A verifier must compare drafts against source pages and the coverage ledger, not merely review the prose.
 
-Use the backend selected during preflight. Prefer the Codex built-in LaTeX compiler when available, then a proven installed LaTeX engine. If dependencies fail, retry with the minimal template; if LaTeX remains unavailable, use a supported direct-PDF path through the PDF skill while preserving equivalent `.tex` sources. Never attempt network package installation without authorization.
+Use the backend selected during preflight. Prefer a harness-native LaTeX compiler when available, then a proven installed LaTeX engine. If dependencies fail, retry with the minimal template; if LaTeX remains unavailable, use an available direct-PDF capability while preserving equivalent `.tex` sources. Never attempt network package installation without authorization.
 
 Render every generated PDF to images and inspect for missing glyphs, overflow, clipping, overlap, broken formulas, unreadable tables, and course-map placement. Fix and re-run checks until all blocking gates pass. Record the backend, template mode, missing dependencies, fallback attempts, and visual-QA evidence in `coverage-report.md`.
 

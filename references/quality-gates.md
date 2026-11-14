@@ -5,6 +5,7 @@ All blocking gates must pass.
 | Gate | Blocking test |
 |---|---|
 | Inventory | Every supplied file is classified; ambiguous roles are disclosed. |
+| Harness capabilities | Input reading, validation, generation, rendering, and image-inspection capabilities are recorded before deep drafting; missing visual capability cannot pass silently. |
 | Build preflight | Before deep drafting, the Chinese/English/math smoke test selects a working backend, or the task stops for an explicit source-only decision. |
 | Ordering | Lecture order has evidence; missing and duplicate identifiers are reported. |
 | Page coverage | Every page/slide has exactly one valid disposition; none remain uncovered or uncertain. |

@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-`final-review-slides` 是一个用于期末复习的 Codex Skill，可将 PDF 和 PowerPoint 课程讲义整理为带来源引用的完整复习资料，并根据 Revision、Quiz、作业及往年题生成模拟试卷。它支持中文、英文和中英混合课程，同时保留原始授课顺序、专业术语、公式以及可追溯的页码或幻灯片引用。
+`final-review-slides` 是一个适用于 Codex 和 DeepSeek Harness 的期末复习 Skill，可将 PDF 和 PowerPoint 课程讲义整理为带来源引用的完整复习资料，并根据 Revision、Quiz、作业及往年题生成模拟试卷。它支持中文、英文和中英混合课程，同时保留原始授课顺序、专业术语、公式以及可追溯的页码或幻灯片引用。
 
 ## 主要功能
 
@@ -64,6 +64,8 @@ mock-exam-blueprint.md
 
 ## 安装
 
+### Codex
+
 将仓库克隆到个人 Codex Skills 目录：
 
 ```bash
@@ -73,6 +75,26 @@ git clone https://github.com/chowkayee11/final-review-slides.git \
 ```
 
 重新启动 Codex 或新建一个任务，使 Skill 被重新发现。
+
+### DeepSeek Harness
+
+安装到用户级 Skill 目录：
+
+```bash
+mkdir -p ~/.dsh/skills
+git clone https://github.com/chowkayee11/final-review-slides.git \
+  ~/.dsh/skills/final-review-slides
+```
+
+或者只安装到当前项目：
+
+```bash
+mkdir -p .dsh/skills
+git clone https://github.com/chowkayee11/final-review-slides.git \
+  .dsh/skills/final-review-slides
+```
+
+DeepSeek Harness 也会扫描 `.agents/skills` 和 `~/.agents/skills`。`SKILL.md` 必须直接位于 `final-review-slides` 目录中，不能继续深层嵌套。
 
 ## 使用方法
 
@@ -95,6 +117,12 @@ git clone https://github.com/chowkayee11/final-review-slides.git \
 ```text
 使用 $final-review-slides 读取这个目录中的所有讲义，
 生成完整复习资料、速查表、易错点辨析和模拟题。
+```
+
+在 DeepSeek Harness 中可以显式调用：
+
+```text
+/final-review-slides 读取 /path/to/course 中的全部讲义，生成 comprehensive 深度的复习资料。
 ```
 
 ## 语言规则
@@ -154,7 +182,7 @@ Mermaid 源文件始终保留。Skill 不会尝试绕过安全沙箱。
 
 ## PDF 构建降级
 
-开始深度整理前，Skill 会先编译一页包含中文、英文和数学公式的测试文档。它依次尝试 Codex 内置 LaTeX 编译器、已安装的 LaTeX 引擎、精简模板，以及在保留 `.tex` 源文件的同时使用受支持的直接 PDF 后端。如果所有 PDF 路径均不可用，Skill 会在完整处理课程前询问是否接受仅交付源文件，不会等到整理结束才暴露阻塞问题。
+开始深度整理前，Skill 会先编译一页包含中文、英文和数学公式的测试文档。它依次尝试当前 Harness 提供的 LaTeX 编译器、已安装的 LaTeX 引擎、精简模板，以及在保留 `.tex` 源文件的同时使用受支持的直接 PDF 后端。如果所有 PDF 路径均不可用，Skill 会在完整处理课程前询问是否接受仅交付源文件，不会等到整理结束才暴露阻塞问题。
 
 ## 质量门槛
 
